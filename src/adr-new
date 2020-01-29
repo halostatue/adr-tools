@@ -2,7 +2,7 @@
 set -e
 eval "$($(dirname $0)/adr-config)"
 
-## usage: adr new [-s SUPERSEDED] [-l TARGET:LINK:REVERSE-LINK] TITLE_TEXT...
+## usage: adr new [-n NUMBER] [-s SUPERCEDED] [-l TARGET:LINK:REVERSE-LINK] TITLE_TEXT...
 ##
 ## Creates a new, numbered ADR.  The TITLE_TEXT arguments are concatenated to
 ## form the title of the new ADR.  The ADR is opened for editing in the
@@ -19,7 +19,9 @@ eval "$($(dirname $0)/adr-config)"
 ##
 ## Options:
 ##
-## -s SUPERSEDED   A reference (number or partial filename) of a previous
+## -n NUMBER       Create the new ADR with a given number.
+##
+## -s SUPERCEDED   A reference (number or partial filename) of a previous
 ##                 decision that the new decision supersedes. A Markdown link
 ##                 to the superseded ADR is inserted into the Status section.
 ##                 The status of the superseded ADR is changed to record that
@@ -48,13 +50,26 @@ eval "$($(dirname $0)/adr-config)"
 ##
 ##     adr new -s 3 -s 4 -l "5:Amends:Amended by" Use Riak CRDTs to cope with scale
 ##
+## E.g. to create a new ADR with an explicit number:
+##
+##     adr new -n 42 User PostgreSQL Database
+##
 
 superseded=()
 links=()
+newnum=()
 
-while getopts s:l: arg
+while getopts n:s:l: arg
 do
     case "$arg" in
+        n)
+            if [ -n "$newnum" ];
+            then
+                echo "ERROR: multiple numbers given"
+                exit 1
+            fi
+            newnum="$OPTARG"
+            ;;
         s)
             superseded+=("$OPTARG")
             ;;
@@ -91,12 +106,21 @@ then
     exit 1
 fi
 
-if [ -d $dstdir ]
+if [ -z "$newnum" ]
 then
-    maxid=$(ls $dstdir | grep -Eo '^[0-9]+' | sed -e 's/^0*//' | sort -rn | head -1)
-    newnum=$(($maxid + 1))
-else
-    newnum=1
+    if [ -d $dstdir ]
+    then
+        maxid=$(ls $dstdir | grep -Eo '^[0-9]+' | sed -e 's/^0*//' | sort -rn | head -1)
+        newnum=$(($maxid + 1))
+    else
+        newnum=1
+    fi
+fi
+
+if ls $dstdir/0*$newnum-* 1>/dev/null 2>&1
+then
+    echo "ERROR: ADR number $newnum already exists"
+    exit 1
 fi
 
 newid=$(printf "%04d" $newnum)
@@ -131,3 +155,4 @@ done
 
 ${VISUAL:-${EDITOR:-true}} $dstfile
 echo $dstfile
+
