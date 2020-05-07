@@ -11,5 +11,5 @@ adr generate toc -p foo/doc/adr/ -s
 
 * [1. First Decision](foo/doc/adr/0001-first-decision.md): Accepted
 * [2. Second Decision](foo/doc/adr/0002-second-decision.md): Accepted
-* [3. Third Decision](foo/doc/adr/0003-third-decision.md): Superceded by [4. Fourth Decision](foo/doc/adr/0004-fourth-decision.md)
+* [3. Third Decision](foo/doc/adr/0003-third-decision.md): Superseded by [4. Fourth Decision](foo/doc/adr/0004-fourth-decision.md)
 * [4. Fourth Decision](foo/doc/adr/0004-fourth-decision.md): Accepted

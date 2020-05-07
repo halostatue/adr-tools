@@ -2,7 +2,7 @@
 set -e
 eval "$($(dirname $0)/adr-config)"
 
-## usage: adr new [-n NUMBER] [-s SUPERCEDED] [-l TARGET:LINK:REVERSE-LINK] TITLE_TEXT...
+## usage: adr new [-n NUMBER] [-s SUPERSEDED] [-l TARGET:LINK:REVERSE-LINK] TITLE_TEXT...
 ##
 ## Creates a new, numbered ADR.  The TITLE_TEXT arguments are concatenated to
 ## form the title of the new ADR.  The ADR is opened for editing in the
@@ -21,7 +21,7 @@ eval "$($(dirname $0)/adr-config)"
 ##
 ## -n NUMBER       Create the new ADR with a given number.
 ##
-## -s SUPERCEDED   A reference (number or partial filename) of a previous
+## -s SUPERSEDED   A reference (number or partial filename) of a previous
 ##                 decision that the new decision supersedes. A Markdown link
 ##                 to the superseded ADR is inserted into the Status section.
 ##                 The status of the superseded ADR is changed to record that
@@ -155,4 +155,3 @@ done
 
 ${VISUAL:-${EDITOR:-true}} $dstfile
 echo $dstfile
-
