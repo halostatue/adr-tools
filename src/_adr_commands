@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-eval "$($(dirname $0)/adr-config)"
+eval "$("$(dirname "$0")/adr-config")"
 
 for f in $(cd "$adr_bin_dir" && find . -name 'adr-*')
 do

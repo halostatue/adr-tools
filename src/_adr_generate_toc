@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-eval "$($(dirname $0)/adr-config)"
+eval "$("$(dirname "$0")/adr-config")"
 
 ## usage: adr generate toc [-s] [-i INTRO] [-o OUTRO] [-p LINK_PREFIX]
 ##
@@ -16,35 +16,24 @@ eval "$($(dirname $0)/adr-config)"
 ##
 ## Both INTRO and OUTRO must be in Markdown format.
 
-args=$(getopt si:o:p: $*)
-set -- $args
-
 link_prefix=
 output_status=
 
-for arg
+while getopts si:o:p: arg
 do
-    case "$arg"
-    in
-        -s)
+    case "$arg" in
+        s)
             output_status=1
             shift
             ;;
-        -i)
-            intro="$2"
-            shift 2
+        i)
+            intro="$OPTARG"
             ;;
-        -o)
-            outro="$2"
-            shift 2
+        o)
+            outro="$OPTARG"
             ;;
-        -p)
-            link_prefix="$2"
-            shift 2
-            ;;
-        --)
-            shift
-            break
+        p)
+            link_prefix="$OPTARG"
             ;;
     esac
 done
@@ -54,7 +43,7 @@ cat <<EOF
 
 EOF
 
-if [ ! -z $intro ]
+if [ ! -z "$intro" ]
 then
     cat "$intro"
     echo
@@ -62,8 +51,8 @@ fi
 
 for f in $("$adr_bin_dir/adr-list")
 do
-    title=$("$adr_bin_dir/_adr_title" $f)
-    link=${link_prefix}$(basename $f)
+    title=$("$adr_bin_dir/_adr_title" "$f")
+    link=${link_prefix}$(basename "$f")
     status=
 
     if [[ "$output_status" == "1" ]]; then
@@ -77,7 +66,7 @@ do
     echo -e "* [$title]($link)$status"
 done
 
-if [ ! -z $outro ]
+if [ ! -z "$outro" ]
 then
     echo
     cat "$outro"
