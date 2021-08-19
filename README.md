@@ -41,10 +41,15 @@ when you initialise the ADR log.
     superseded by the new ADR. It then opens the new ADR in your
     editor of choice.
 
-    If the ADR directory contains a file `templates/template.md`, this is used
-    as the template for the new ADR. Otherwise a default template is used.
+3.  Configure the template.
 
-3.  For further information, use the built in help:
+    If the ADR directory contains a file `templates/template.md`, this is used
+    as the template for the new ADR. Otherwise a default template is used or one
+    found with $ADR_TEMPLATE.
+
+        export ADR_TEMPLATE=<path to file>
+
+4.  For further information, use the built in help:
 
         adr help
 
