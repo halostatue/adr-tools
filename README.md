@@ -57,4 +57,4 @@ See the [tests](tests/) for detailed examples.
 
 The decisions for this tool are recorded as [architecture decision records in the project repository](doc/adr/).
 
-[ADRs]: http://blog.cognitect.com/2011/11/15/documenting-architecture-decisions.html
+[ADRs]: https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions
