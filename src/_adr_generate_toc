@@ -9,21 +9,26 @@ eval "$("$(dirname "$0")"/adr-config)"
 ## Options:
 ##
 ## -s        include the state of each decision next to its link.
-## -i INTRO  precede the table of contents with text from the INTRO file.
-## -o OUTRO  follow the table of contents with text from the given OUTRO file.
+## -i INTRO  precede the table of contents with the given INTRO text.
+## -o OUTRO  follow the table of contents with the given OUTRO text.
 ## -p LINK_PREFIX
 ##           prefix each decision file link with LINK_PREFIX.
+## -r        list the records in reverse order
 ##
 ## Both INTRO and OUTRO must be in Markdown format.
 
 link_prefix=
 output_status=
+list_args=()
 
-while getopts si:o:p: arg; do
+while getopts rsi:o:p: arg; do
   case "$arg" in
   s)
     output_status=1
     shift
+    ;;
+  r)
+    list_args+=("-r")
     ;;
   i)
     intro="$OPTARG"
@@ -42,13 +47,12 @@ cat <<EOF
 
 EOF
 
-if [ -n "$intro" ]
-then
-    cat "$intro"
-    echo
+if [ -n "$intro" ]; then
+  cat "$intro"
+  echo
 fi
 
-for f in $("$adr_bin_dir/adr-list"); do
+for f in $("$adr_bin_dir/adr-list" "${list_args[@]}"); do
   title=$("$adr_bin_dir/_adr_title" "$f")
   link=${link_prefix}$(basename "$f")
   status=
@@ -68,4 +72,3 @@ if [ ! -z "$outro" ]; then
   echo
   cat "$outro"
 fi
-
