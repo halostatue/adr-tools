@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-eval "$("$(dirname "$0")/adr-config")"
+eval "$("$(dirname "$0")"/adr-config)"
 
 cat <<ENDHELP
 usage: adr new [-n NUMBER] [-s SUPERSEDED] [-l TARGET:LINK:REVERSE-LINK] TITLE_TEXT...
@@ -55,3 +55,4 @@ E.g. to create a new ADR that supersedes ADRs 3 and 4, and amends ADR 5:
     adr new -s 3 -s 4 -l "5:Amends:Amended by" Use Riak CRDTs to cope with scale
 
 ENDHELP
+

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-eval "$("$(dirname "$0")/adr-config")"
+eval "$("$(dirname "$0")"/adr-config)"
 
 ## usage: adr generate toc [-s] [-i INTRO] [-o OUTRO] [-p LINK_PREFIX]
 ##
@@ -42,9 +42,10 @@ cat <<EOF
 
 EOF
 
-if [ ! -z "$intro" ]; then
-  cat "$intro"
-  echo
+if [ -n "$intro" ]
+then
+    cat "$intro"
+    echo
 fi
 
 for f in $("$adr_bin_dir/adr-list"); do
@@ -67,3 +68,4 @@ if [ ! -z "$outro" ]; then
   echo
   cat "$outro"
 fi
+
