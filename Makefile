@@ -8,11 +8,14 @@ BUILDDIR:=/tmp/adr-tools-build
 check: $(TESTS:tests/%.sh=$(BUILDDIR)/tests/%.diff)
 	@echo SUCCESS
 
+recheck: clean check
+
 tests/adr-config.expected: tests/adr-config.expected.tmpl
 	@sed -e "s!__PWD__!$(shell pwd -P)!g" < $< > $@
 
 $(BUILDDIR)/tests/%.diff: $(BUILDDIR)/tests/%.output tests/%.expected
-	@diff --side-by-side --width 225 $^ > $@ || ! cat -n $@
+	@diff --side-by-side $^ > $@ || ! cat -n $@
+	@#diff --side-by-side --width 225 $^ > $@ || ! cat -n $@
 	@#diff -u $^ > $@ || ! cat $@
 
 $(BUILDDIR)/tests/%.output: tests/%.sh tests/%.expected $(SRC)

@@ -6,8 +6,7 @@ architecture-log/0002-first-record.md
 export VISUAL
 export EDITOR
 
-if adr edit
-then
+if adr edit; then
   echo ERROR: should have failed
 fi
 ERROR: editor not configured

@@ -34,16 +34,16 @@ link_extension=.html
 
 while getopts e:p: arg; do
   case "${arg}" in
-    e)
-      link_extension="$OPTARG"
-      ;;
-    p)
-      link_prefix="$OPTARG"
-      ;;
-    *)
-      echo "Not implemented: ${arg}" >&2
-      exit 1
-      ;;
+  e)
+    link_extension="$OPTARG"
+    ;;
+  p)
+    link_prefix="$OPTARG"
+    ;;
+  *)
+    echo "Not implemented: ${arg}" >&2
+    exit 1
+    ;;
   esac
 done
 shift $((OPTIND - 1))
@@ -60,16 +60,22 @@ for f in $("${adr_bin_dir:?}"/adr-list); do
   n=$(index "$f")
   title="$("${adr_bin_dir:?}"/_adr_title "$f")"
 
-  echo "    _$n [label=\"${title}\"; URL=\"${link_prefix}$(basename "$f" .md)${link_extension}\"];"
-  if [ "$n" -gt 1 ]; then
-    echo "    _$(("$n" - 1)) -> _$n [style=\"dotted\", weight=1];"
+  url="${link_prefix}$(basename "$f" .md)${link_extension}"
+
+  printf "    _%s [label=\"%s\"; URL=\"%s\"];\n" "$n" "${title}" "${url}"
+
+  if ((n > 1)); then
+    printf "    _%s -> _%s [style=\"dotted\", weight=1];\n" $((n - 1)) "$n"
   fi
 done
+
 echo "  }"
 
 for f in $("${adr_bin_dir:?}"/adr-list); do
   n=$(index "$f")
-  "${adr_bin_dir:?}"/_adr_links "$f" | grep -Ev " by$" | sed -E -e 's/^([0-9]+)=(.+)$/  _'"$n"' -> _\1 [label="\2", weight=0]/;'
+  "${adr_bin_dir:?}"/_adr_links "$f" |
+    grep -Ev " by$" |
+    sed -E -e 's/^([0-9]+)=(.+)$/  _'"$n"' -> _\1 [label="\2", weight=0]/;'
 done
 
 echo "}"
