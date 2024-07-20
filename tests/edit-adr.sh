@@ -4,8 +4,7 @@ adr new First Record
 export VISUAL
 export EDITOR
 
-if adr edit
-then
+if adr edit; then
   echo ERROR: should have failed
 fi
 
