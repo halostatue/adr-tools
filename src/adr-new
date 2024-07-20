@@ -98,7 +98,7 @@ if [[ -z "${title}" ]]; then
   exit 1
 fi
 
-if [[ -z "${newnum}" ]]; then
+if [[ "${newnum}" = unassigned ]]; then
   if [[ -d "${dstdir}" ]]; then
     # shellcheck disable=SC2010
     maxid=$(ls "${dstdir}" | grep -Eo '^[0-9]+' | sed -e 's/^0*//' | sort -rn | head -1)

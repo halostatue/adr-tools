@@ -8,8 +8,12 @@ BUILDDIR:=/tmp/adr-tools-build
 check: $(TESTS:tests/%.sh=$(BUILDDIR)/tests/%.diff)
 	@echo SUCCESS
 
+tests/adr-config.expected: tests/adr-config.expected.tmpl
+	@sed -e "s!__PWD__!$(shell pwd -P)!g" < $< > $@
+
 $(BUILDDIR)/tests/%.diff: $(BUILDDIR)/tests/%.output tests/%.expected
-	@diff --side-by-side $^ > $@ || ! cat $@
+	@diff --side-by-side --width 225 $^ > $@ || ! cat -n $@
+	@#diff -u $^ > $@ || ! cat $@
 
 $(BUILDDIR)/tests/%.output: tests/%.sh tests/%.expected $(SRC)
 	@echo TEST: $*
@@ -24,7 +28,7 @@ $(BUILDDIR)/tests/%.output: tests/%.sh tests/%.expected $(SRC)
 	    /bin/sh -v $(abspath $<) > $(abspath $@) 2>&1) || ! cat $@
 
 clean:
-	rm -rf /tmp/adr-tools-build
+	@rm -rf $(BUILDDIR) tests/adr-config.expected
 
 show-%:
 	@echo "$* ($(flavor $*)) = $($*)"

@@ -3,7 +3,7 @@ config edit generate help init link list new upgrade-repository
 _adr_autocomplete adr li
 link list
 _adr_autocomplete adr generate
-graph toc
+graph table toc
 _adr_autocomplete adr generate to
 toc
 _adr_autocomplete adr ierhir
