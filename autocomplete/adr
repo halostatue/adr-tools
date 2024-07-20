@@ -1,8 +1,9 @@
+# shellcheck shell=bash
 _adr() {
   # Autocomplete only when entering the last term
-  if [ ${COMP_CWORD} -eq $((${#COMP_WORDS[@]} - 1)) ]
-  then
-    COMPREPLY=( $(_adr_autocomplete ${COMP_WORDS[*]} ) )
+  if [ "${COMP_CWORD}" -eq $((${#COMP_WORDS[@]} - 1)) ]; then
+    # shellcheck disable=SC2207,SC2048,SC2086
+    COMPREPLY=($(_adr_autocomplete ${COMP_WORDS[*]}))
   fi
 }
 

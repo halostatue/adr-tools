@@ -1,6 +1,8 @@
-ADR Tools - command line tools to maintain a project's architecture decision records
+ADR Tools - command line tools to maintain a project's architecture decision
+records
 
 Copyright (C) 2016 Nat Pryce
+Copyright 2024 Austin Ziegler and other contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -9,11 +11,13 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-Content that this tool adds to your project is under the
-[Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) licence.
+Content that this tool adds to your project is under the [Creative Commons
+Attribution 4.0 (CC BY 4.0)][cc-by-4] licence.
+
+[cc-by-4]: https://creativecommons.org/licenses/by/4.0/

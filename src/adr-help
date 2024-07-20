@@ -13,4 +13,4 @@ eval "$("$(dirname "$0")"/adr-config)"
 
 pager="${ADR_PAGER:-${PAGER:-more}}"
 
-("$adr_bin_dir/_adr_help" "$@") | "$pager"
+("${adr_bin_dir:?}"/_adr_help "$@") | "${pager}"

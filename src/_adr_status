@@ -6,4 +6,4 @@ awk '
 /^## Status/,/^#/ && !/^## Status/ {
 	if (!/^(#|\s*$)/) print
 }
-' "$("$adr_bin_dir/_adr_file" "$1")"
+' "$("${adr_bin_dir:?}"/_adr_file "$1")"

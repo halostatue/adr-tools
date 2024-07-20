@@ -5,17 +5,16 @@ eval "$("$(dirname "$0")"/adr-config)"
 cat <<ENDHELP
 usage: adr new [-n NUMBER] [-s SUPERSEDED] [-l TARGET:LINK:REVERSE-LINK] TITLE_TEXT...
 
-Creates a new, numbered ADR.  The TITLE_TEXT arguments are concatenated to
-form the title of the new ADR.  The ADR is opened for editing in the
-editor specified by the VISUAL or EDITOR environment variable (VISUAL is
-preferred; EDITOR is used if VISUAL is not set).  After editing, the
-file name of the ADR is output to stdout, so the command can be used in
-scripts.
+Creates a new, numbered ADR. The TITLE_TEXT arguments are concatenated to form
+the title of the new ADR. The ADR is opened for editing in the editor specified
+by the VISUAL or EDITOR environment variable (VISUAL is preferred; EDITOR is
+used if VISUAL is not set). After editing, the file name of the ADR is output
+to stdout, so the command can be used in scripts.
 
-If the ADR directory contains a file $(templates/template.md), this is used as
-the template for the new ADR.  Otherwise the following file is used:
+If the ADR directory contains a file 'templates/template.md', this is used as
+the template for the new ADR. Otherwise the following file is used:
 
-  ${adr_template_dir}/template.md
+  ${adr_template_dir:?}/template.md
 
 This template follows the style described by Michael Nygard in this article.
 
@@ -55,4 +54,3 @@ E.g. to create a new ADR that supersedes ADRs 3 and 4, and amends ADR 5:
     adr new -s 3 -s 4 -l "5:Amends:Amended by" Use Riak CRDTs to cope with scale
 
 ENDHELP
-

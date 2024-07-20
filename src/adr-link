@@ -19,5 +19,5 @@ forward_link="${2:?LINK}"
 target="${3:?TARGET}"
 reverse_link="${4:?REVERSE-LINK}"
 
-"$adr_bin_dir/_adr_add_link" "$source" "$forward_link" "$target"
-"$adr_bin_dir/_adr_add_link" "$target" "$reverse_link" "$source"
+"${adr_bin_dir:?}"/_adr_add_link "${source}" "${forward_link}" "${target}"
+"${adr_bin_dir:?}"/_adr_add_link "${target}" "${reverse_link}" "${source}"

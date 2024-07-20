@@ -27,9 +27,8 @@ eval "$("$(dirname "$0")"/adr-config)"
 
 cmd="$1"
 
-if [ -z "$cmd" ]
-then
-    (cd "$adr_bin_dir" && find . -name '_adr_generate_*') | cut -c 17-
+if [[ -z "${cmd}" ]]; then
+  (cd "${adr_bin_dir:?}" && find . -name '_adr_generate_*') | cut -c 17-
 else
-    "$adr_bin_dir/_adr_generate_$cmd" "${@:2}"
+  "${adr_bin_dir:?}/_adr_generate_${cmd}" "${@:2}"
 fi

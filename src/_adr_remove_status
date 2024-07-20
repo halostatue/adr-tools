@@ -3,9 +3,9 @@ set -e
 eval "$("$(dirname "$0")"/adr-config)"
 
 current_status=${1:?FROM}
-file=$("$adr_bin_dir/_adr_file" "${2:?FILE}")
+file=$("${adr_bin_dir:?}"/_adr_file "${2:?FILE}")
 
-awk -v current_status="$current_status" '
+awk -v current_status="${current_status}" '
 	BEGIN {
 		in_status_section=0
 	}
@@ -27,9 +27,8 @@ awk -v current_status="$current_status" '
 		after_blank=0
 	}
 	{ print }
-' "$file" > "$file.tmp"
+' "${file}" >"${file}.tmp"
 
-if [ -e "$file.tmp" ];
-then
-  mv "$file.tmp" "$file"
+if [[ -e "${file}.tmp" ]]; then
+  mv "${file}.tmp" "${file}"
 fi

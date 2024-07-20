@@ -10,30 +10,29 @@ eval "$("$(dirname "$0")"/adr-config)"
 ##
 ## -r        list decision records in reverse order
 
-adr_dir="$("$adr_bin_dir/_adr_dir")"
+adr_dir="$("${adr_bin_dir:?}"/_adr_dir)"
 
 sort_args=()
 
-if (( $# > 0 )); then
-   while getopts ":r" arg; do
-       case "${arg}" in
-           r)
-             sort_args+=("-r")
-             ;;
+if (($# > 0)); then
+  while getopts ":r" arg; do
+    case "${arg}" in
+    r)
+      sort_args+=("-r")
+      ;;
 
-           *)
-             echo "invalid argument: $OPTARG" >&2
-             exit 1
-             ;;
-       esac
-   done
-   shift $((OPTIND-1))
+    *)
+      echo "invalid argument: $OPTARG" >&2
+      exit 1
+      ;;
+    esac
+  done
+  shift $((OPTIND - 1))
 fi
 
-if [ -d "$adr_dir" ]
-then
-   find "$adr_dir" | grep -E "^$adr_dir/[0-9]+-[^/]*\\.md" | sort "${sort_args[@]}"
+if [[ -d "${adr_dir}" ]]; then
+  find "${adr_dir}" | grep -E "^${adr_dir}/[0-9]+-[^/]*\\.md" | sort "${sort_args[@]}"
 else
-    echo "The $adr_dir directory does not exist"
-    exit 1
+  echo "The ${adr_dir} directory does not exist"
+  exit 1
 fi

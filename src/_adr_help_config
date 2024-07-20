@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
-eval "$($(dirname $0)/adr-config)"
+eval "$("$(dirname "$0")"/adr-config)"
 
 cat <<ENDHELP
-usage: adr config 
+usage: adr config
 
 Displays the current configuration.
 

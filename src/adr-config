@@ -3,65 +3,63 @@
 
 basedir="$(cd -L "$(dirname "$0")" >/dev/null 2>&1 && pwd -L)"
 
-adr_bin_dir="$basedir"
-adr_template_dir="$basedir"
+adr_bin_dir="${basedir}"
+adr_template_dir="${basedir}"
 
 quiet=0
 
-while getopts q arg
-do
-    case "$arg" in
-      q)
-        quiet=1
-        ;;
-      *)
-        echo "Not implemented: $arg" >&2
-        exit 1
-        ;;
-    esac
+while getopts q arg; do
+  case "${arg}" in
+  q)
+    quiet=1
+    ;;
+  *)
+    echo "Not implemented: ${arg}" >&2
+    exit 1
+    ;;
+  esac
 done
 
-if [ "$quiet" -eq 0 ]
-then
+if [[ "${quiet}" -eq 0 ]]; then
   echo "# This script returns the configuration values for adr-tools. It does not change these values."
 fi
-if [ -e /etc/default/adr-config ]
-then
-  if [ "$quiet" -eq 0 ]
-  then
+
+if [[ -s /etc/default/adr-config ]]; then
+  if [[ "${quiet}" -eq 0 ]]; then
     echo "# Loading system values from /etc/default/adr-config"
   fi
+  # shellcheck source=/dev/null
   source /etc/default/adr-config
 fi
-if [ -e /etc/adr-config ]
-then
-  if [ "$quiet" -eq 0 ]
-  then
-      echo "# Loading system values from /etc/adr-config"
+
+if [[ -s /etc/adr-config ]]; then
+  if [ "${quiet}" -eq 0 ]; then
+    echo "# Loading system values from /etc/adr-config"
   fi
+  # shellcheck source=/dev/null
   source /etc/adr-config
 fi
-if [ -e ~/.adr-config ]
-then
-  if [ "$quiet" -eq 0 ]
-  then
+
+if [[ -s ~/.adr-config ]]; then
+  if [[ "${quiet}" -eq 0 ]]; then
     echo "# Loading global values from ~/.adr-config"
   fi
+  # shellcheck source=/dev/null
   source ~/.adr-config
 fi
-if [ -e "$("${adr_bin_dir}/_adr_dir")/.adr-config" ]
-then
-  if [ "$quiet" -eq 0 ]
-  then
-      echo "# Loading local values from $("${adr_bin_dir}/_adr_dir")/.adr-config"
+
+if [[ -s "$("${adr_bin_dir:?}/_adr_dir")/.adr-config" ]]; then
+  if [[ "${quiet}" -eq 0 ]]; then
+    echo "# Loading local values from $("${adr_bin_dir:?}/_adr_dir")/.adr-config"
   fi
-  source "$("${adr_bin_dir}/_adr_dir")/.adr-config"
+
+  # shellcheck source=/dev/null
+  source "$("${adr_bin_dir:?}/_adr_dir")/.adr-config"
 fi
 
-if [[ -n $ADR_TEMPLATE ]]; then
-  adr_template_dir="$(dirname $ADR_TEMPLATE)"
+if [[ -n "${ADR_TEMPLATE}" ]]; then
+  adr_template_dir="$(dirname "${ADR_TEMPLATE}")"
 fi
 
-echo 'adr_bin_dir="'"${adr_bin_dir}"'"'
+echo 'adr_bin_dir="'"${adr_bin_dir:?}"'"'
 echo 'adr_template_dir="'"${adr_template_dir}"'"'
-
