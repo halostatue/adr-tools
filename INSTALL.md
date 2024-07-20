@@ -19,7 +19,7 @@ You can install with Git, if you want to be on the bleeding edge:
 
 ### Git for Windows: git bash
 
-When using git bash within [Git for Windows][], the scripts can simply be put in
+When using git bash within [Git for Windows][], the scripts can be put in
 `usr\bin` in the installation directory. That directory usually is `C:\Program
 Files\Git\usr\bin`.
 
