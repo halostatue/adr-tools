@@ -1,7 +1,7 @@
 adr init adrs
 adrs/0001-record-architecture-decisions.md
 mkdir -p adrs/templates
-cat > adrs/templates/template.md <<EOF
+cat >adrs/templates/template.md <<EOF
 # TITLE
 
 Project specific template!

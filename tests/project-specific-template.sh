@@ -1,6 +1,6 @@
 adr init adrs
 mkdir -p adrs/templates
-cat > adrs/templates/template.md <<EOF
+cat >adrs/templates/template.md <<EOF
 # TITLE
 
 Project specific template!
